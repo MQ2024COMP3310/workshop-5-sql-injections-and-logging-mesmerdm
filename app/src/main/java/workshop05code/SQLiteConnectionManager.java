@@ -140,6 +140,8 @@ public class SQLiteConnectionManager {
 
     }
 
+
+
     /**
      * Possible weakness here?
      * 

@@ -56,8 +56,13 @@ public class App {
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                wordleDatabaseConnection.addValidWord(i, line);
+                //Validating passed string is a 4 letter lowercase string
+                if(isValid(line)) {
+                    System.out.println(line);
+                    wordleDatabaseConnection.addValidWord(i, line);
+                } else {
+                    System.out.println("Error: input " + line + " is not a 4 letter word, skipping to next word");
+                }
                 i++;
             }
 
@@ -74,13 +79,17 @@ public class App {
             String guess = scanner.nextLine();
 
             while (!guess.equals("q")) {
-                System.out.println("You've guessed '" + guess+"'.");
+                if(isValid(guess)) {
+                System.out.println("You've guessed '" + guess +"'.");
 
                 if (wordleDatabaseConnection.isValidWord(guess)) { 
                     System.out.println("Success! It is in the the list.\n");
                 }else{
                     System.out.println("Sorry. This word is NOT in the the list.\n");
                 }
+            } else {
+                System.out.println("Invalid. Please enter a 4-letter word in lowercase.\n");
+            }
 
                 System.out.print("Enter a 4 letter word for a guess or q to quit: " );
                 guess = scanner.nextLine();
@@ -89,5 +98,11 @@ public class App {
             e.printStackTrace();
         }
 
+    }
+
+
+    public static boolean isValid(String guess) {
+        //validates user input, asks for a retry if not a 4 letterlower case word
+        return guess.length() == 4 && guess.matches("[a-z]+");
     }
 }
