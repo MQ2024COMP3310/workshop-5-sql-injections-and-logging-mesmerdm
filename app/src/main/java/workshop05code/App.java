@@ -58,10 +58,11 @@ public class App {
             while ((line = br.readLine()) != null) {
                 //Validating passed string is a 4 letter lowercase string
                 if(isValid(line)) {
-                    System.out.println(line);
                     wordleDatabaseConnection.addValidWord(i, line);
+                    logger.log(Level.INFO, line); //logs the valid words 
                 } else {
-                    System.out.println("Error: input " + line + " is not a 4 letter word, skipping to next word");
+                    System.out.println("Error: input '" + line + "' does not match parameters. Skipping to next word.");
+                    logger.log(Level.SEVERE, line); //logs invalid words with level severe
                 }
                 i++;
             }
@@ -69,6 +70,7 @@ public class App {
         } catch (IOException e) {
             System.out.println("Not able to load . Sorry!");
             System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Caught exception, e"); //log exception.
             return;
         }
 
@@ -95,7 +97,7 @@ public class App {
                 guess = scanner.nextLine();
             }
         } catch (NoSuchElementException | IllegalStateException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Caught exception, e"); //log exception.
         }
 
     }
@@ -103,6 +105,6 @@ public class App {
 
     public static boolean isValid(String guess) {
         //validates user input, asks for a retry if not a 4 letterlower case word
-        return guess.length() == 4 && guess.matches("[a-z]+");
+        return guess.matches("[a-z]{4}");
     }
 }

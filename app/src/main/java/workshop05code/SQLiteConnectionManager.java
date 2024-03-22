@@ -69,7 +69,7 @@ public class SQLiteConnectionManager {
 
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Caught exception, e"); //log exception without stack trace.
         }
     }
 
@@ -88,7 +88,7 @@ public class SQLiteConnectionManager {
                     return true;
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.log(Level.SEVERE, "Caught exception, e"); //log exception without stack trace.
                 return false;
             }
         }
@@ -113,7 +113,7 @@ public class SQLiteConnectionManager {
                 return true;
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.log(Level.SEVERE, "Caught exception, e"); //log exception.
                 return false;
             }
         }
@@ -135,7 +135,7 @@ public class SQLiteConnectionManager {
                     pstmt.setString(2, word);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.WARNING, "Caught exception, "); //log exception.
         }
 
     }
@@ -165,7 +165,7 @@ public class SQLiteConnectionManager {
             return false;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.WARNING, "Caught exception, e"); //log exception
             return false;
         }
 
